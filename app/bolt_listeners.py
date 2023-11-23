@@ -89,6 +89,8 @@ def respond_to_app_mention(
             return
 
         user_id = context.actor_user_id or context.user_id
+        user_info = client.users_info(user=user_id, include_locale=True)
+        logger.info(f"user_info: {user_info}")
 
         if payload.get("thread_ts") is not None:
             # Mentioning the bot user in a thread
@@ -286,6 +288,8 @@ def respond_to_new_message(
 
         messages = []
         user_id = context.actor_user_id or context.user_id
+        user_info = client.users_info(user=user_id, include_locale=True)
+        logger.info(f"user_info: {user_info}")
         last_assistant_idx = -1
         indices_to_remove = []
         for idx, reply in enumerate(messages_in_context):
