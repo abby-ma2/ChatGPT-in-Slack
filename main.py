@@ -22,8 +22,8 @@ from app.slack_ops import build_home_tab
 
 if __name__ == "__main__":
     from slack_bolt.adapter.socket_mode import SocketModeHandler
-
-    logging.basicConfig(level=SLACK_APP_LOG_LEVEL)
+    FORMAT = '%(asctime)-15s %(message)s'
+    logging.basicConfig(level=SLACK_APP_LOG_LEVEL, format=FORMAT)
 
     app = App(
         token=os.environ["SLACK_BOT_TOKEN"],
