@@ -146,8 +146,8 @@ def respond_to_app_mention(
             num_context_tokens,
             max_context_tokens,
         ) = messages_within_context_window(messages, context=context)
-        logger.info(f"call: {display_name} : {num_context_tokens}")
         num_messages = len([msg for msg in messages if msg.get("role") != "system"])
+        logger.info(f"call mention:{display_name} tokens:{num_context_tokens}/{max_context_tokens} messages:{num_messages}")
         if num_messages == 0:
             update_wip_message(
                 client=client,
@@ -370,8 +370,8 @@ def respond_to_new_message(
             num_context_tokens,
             max_context_tokens,
         ) = messages_within_context_window(messages, context=context)
-        logger.info(f"call: {display_name} : {num_context_tokens}")
         num_messages = len([msg for msg in messages if msg.get("role") != "system"])
+        logger.info(f"call new_message:{display_name} tokens:{num_context_tokens}/{max_context_tokens} messages:{num_messages}")
         if num_messages == 0:
             update_wip_message(
                 client=client,
