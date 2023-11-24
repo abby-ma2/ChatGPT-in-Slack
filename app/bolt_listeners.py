@@ -91,7 +91,6 @@ def respond_to_app_mention(
         user_id = context.actor_user_id or context.user_id
         user_info = client.users_info(user=user_id, include_locale=True)
         display_name = user_info.get("user", {}).get("profile", {}).get("display_name", "")
-        logger.info(f"send message: {display_name}")
 
         if payload.get("thread_ts") is not None:
             # Mentioning the bot user in a thread
@@ -147,6 +146,7 @@ def respond_to_app_mention(
             num_context_tokens,
             max_context_tokens,
         ) = messages_within_context_window(messages, context=context)
+        logger.info(f"call: {display_name} : {num_context_tokens}")
         num_messages = len([msg for msg in messages if msg.get("role") != "system"])
         if num_messages == 0:
             update_wip_message(
@@ -291,7 +291,6 @@ def respond_to_new_message(
         user_id = context.actor_user_id or context.user_id
         user_info = client.users_info(user=user_id, include_locale=True)
         display_name = user_info.get("user", {}).get("profile", {}).get("display_name", "")
-        logger.info(f"send message: {display_name}")
 
         last_assistant_idx = -1
         indices_to_remove = []
@@ -371,6 +370,7 @@ def respond_to_new_message(
             num_context_tokens,
             max_context_tokens,
         ) = messages_within_context_window(messages, context=context)
+        logger.info(f"call: {display_name} : {num_context_tokens}")
         num_messages = len([msg for msg in messages if msg.get("role") != "system"])
         if num_messages == 0:
             update_wip_message(
