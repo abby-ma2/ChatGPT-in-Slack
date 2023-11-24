@@ -258,7 +258,7 @@ def respond_to_new_message(
             # Remove old messages
             for message in past_messages:
                 seconds = time.time() - float(message.get("ts"))
-                if seconds < 86400:  # less than 1 day
+                if seconds < 86400/2:  # less than 1 day
                     messages_in_context.append(message)
             is_no_mention_required = True
         else:
